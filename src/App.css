@@ -1,0 +1,17 @@
+.box {
+  display: flex;
+}
+.box div {
+  margin: 20px;
+}
+.department {
+  display: flex;
+  flex-direction: column;
+}
+
+.firstLine {
+  border: 1px solid black;
+}
+.inputBox {
+  display: flex;
+}
