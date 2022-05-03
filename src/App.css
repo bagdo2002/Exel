@@ -1,17 +1,20 @@
 .box {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .box div {
   margin: 20px;
+  text-align: center;
 }
-.department {
-  display: flex;
-  flex-direction: column;
-}
-
-.firstLine {
+.innerItem {
   border: 1px solid black;
+  width: 200px;
+  justify-content: center;
+  align-items: center;
 }
-.inputBox {
+.exel {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }

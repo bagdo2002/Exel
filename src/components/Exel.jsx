@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Search from "../Search.json";
+import Option from "./Option";
 
 const Exel = () => {
   const [state, setState] = useState([]);
@@ -21,89 +22,72 @@ const Exel = () => {
   }, []);
 
   const filter = (word, info) => {
-    if (info.target.checked === true) {
-      let result = state.filter((element) => element.gName !== word);
+    let result = state.filter((element) => element.gName !== word);
 
-      setState(result);
-    } else {
-      let next = jsonArray.filter((element) => element.gName === word);
-      console.log(11);
-      setState([...next, ...state]);
-    }
+    setState(result);
   };
   const filter2 = (word, info) => {
-    if (info.target.checked === true) {
-      let result = state.filter((element) => element.mName !== word);
+    let result = state.filter((element) => element.mName !== word);
 
-      setState(result);
-    } else {
-      let next = jsonArray.filter((element) => element.mName === word);
-
-      setState([...next, ...state]);
-    }
+    setState(result);
   };
   const filter3 = (word, info) => {
-    if (info.target.checked === true) {
-      let result = state.filter((element) => element.dName !== word);
+    let result = state.filter((element) => element.dName !== word);
 
-      setState(result);
-    } else {
-      let next = jsonArray.filter((element) => element.dName === word);
-
-      setState([...next, ...state]);
-    }
+    setState(result);
   };
+  let boxDepartment = [];
+
+  let boxGroup = [];
+  let boxManager = [];
+  let step1 = jsonArray.forEach((element, index) => {
+    if (!boxDepartment.includes(element.dName)) {
+      boxDepartment.push(element.dName);
+    }
+    if (!boxGroup.includes(element.gName)) {
+      boxGroup.push(element.gName);
+    }
+    if (!boxManager.includes(element.mName)) {
+      boxManager.push(element.mName);
+    }
+  });
+
+  let department = [];
+  let group = [];
+  let manager = [];
+  let step2 = boxDepartment.forEach((element) => {
+    department.push({ value: element, label: element });
+  });
+  let step3 = boxManager.forEach((element) => {
+    manager.push({ value: element, label: element });
+  });
+  let step4 = boxGroup.forEach((element) => {
+    group.push({ value: element, label: element });
+  });
+
   return (
     <div>
-      <div className="container">
-        <div className="inputBox">
-          <div>
-            {jsonArray.map((element, index) => {
-              return (
-                <div id={index}>
-                  <label htmlFor="">{element.gName}</label>
-                  <input
-                    type="checkbox"
-                    onClick={(info) => filter(element.gName, info)}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          <div>
-            {jsonArray.map((element, index) => {
-              return (
-                <div id={index}>
-                  <label htmlFor="">{element.mName}</label>
-                  <input
-                    type="checkbox"
-                    onClick={(info) => filter2(element.mName, info)}
-                  />
-                </div>
-              );
-            })}
-          </div>{" "}
-          <div>
-            {jsonArray.map((element, index) => {
-              return (
-                <div id={index}>
-                  <label htmlFor="">{element.dName}</label>
-                  <input
-                    type="checkbox"
-                    onClick={(info) => filter3(element.dName, info)}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <Option
+        group={group}
+        department={department}
+        manager={manager}
+        filter={filter}
+        filter2={filter2}
+        filter3={filter3}
+      />
+      <div className="container"></div>
       {state?.map((element, index) => {
         return (
           <div id={index} className="box">
-            <div> {element.dName}</div>
-            <div> {element.gName}</div>
-            <div> {element.mName}</div>
+            <div className="innerItem">
+              <div> {element.dName}</div>
+            </div>
+            <div className="innerItem">
+              <div> {element.gName}</div>
+            </div>
+            <div className="innerItem">
+              <div> {element.mName}</div>
+            </div>
           </div>
         );
       })}
